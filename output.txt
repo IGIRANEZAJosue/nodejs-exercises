@@ -1,0 +1,1 @@
+Hello this is the output in the output file, the POST request was made by postman
