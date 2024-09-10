@@ -19,9 +19,12 @@ const server = http.createServer((req, res) => {
    }
 
    if (req.method === "POST") {
-      fs.writeFile("./output.txt", outputText, (err) => {
-         if (err) console.log(err.message);
-         else console.log("File created");
+      req.on("data", (chunk) => {
+         console.log(chunk.toString());
+         fs.writeFile("./output.txt", chunk, (err) => {
+            if (err) console.log(err.message);
+            else console.log("File created");
+         });
       });
 
       res.statusCode = 200;
