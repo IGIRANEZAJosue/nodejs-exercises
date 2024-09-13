@@ -1,7 +1,8 @@
 const http = require("http");
 const fs = require("fs");
-const outputText =
-   "Hello this is the output in the output file, the POST request was made by postman";
+const express = require("express");
+
+const app = express();
 
 const server = http.createServer((req, res) => {
    console.log(req.method);
