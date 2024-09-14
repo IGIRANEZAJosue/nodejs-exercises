@@ -10,10 +10,19 @@ app.get("/", (req, res) => {
 
 app.post("/", async (req, res) => {
    const data = JSON.parse(fs.readFileSync("data.json"));
-   const item = { id: Math.random(), ...req.body };
+   const item = { id: (Math.random() * 10).toString(), ...req.body };
    data.push(item);
    fs.writeFileSync("data.json", JSON.stringify(data));
    res.status(201).send(data);
 });
 
-app.listen(3000);
+app.delete("/:id", (req, res) => {
+   const id = req.params.id;
+   const data = JSON.parse(fs.readFileSync("./data.json"));
+   const newData = data.filter((item) => item.id !== id);
+
+   fs.writeFileSync("./data.json", JSON.stringify(newData));
+   res.status(200).send(newData);
+});
+
+app.listen(3000, () => console.log("Server start"));
