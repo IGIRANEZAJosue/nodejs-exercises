@@ -25,4 +25,18 @@ app.delete("/:id", (req, res) => {
    res.status(200).send(newData);
 });
 
+app.put("/:id", (req, res) => {
+   const id = req.params.id;
+   const data = JSON.parse(fs.readFileSync("./data.json"));
+   const newData = req.body;
+
+   const updated = data.map((item) =>
+      item.id === id ? { id, ...newData } : item
+   );
+
+   fs.writeFileSync("./data.json", JSON.stringify(updated));
+
+   res.status(200).send(updated);
+});
+
 app.listen(3000, () => console.log("Server start"));
